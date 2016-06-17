@@ -2,6 +2,7 @@
   "$schema" : "http://json-schema.org/draft-04/schema#",
   "id": "mysql-connector-property-options-3.0",
   "description": "Model property options specific to MySQL",
+  "type": "object",
   "properties": {
     "columnName" : {
       "type" : "string",
@@ -9,7 +10,7 @@
     },
     "dataType" : {
       "type" : "string",
-      "description" : "MySQL datatype\r@see",
+      "description" : "MySQL datatype\r @see https://docs.strongloop.com/display/APIC/MySQL+connector#MySQLconnector-Usingthedatatypefield/columnoptionwithMySQL",
       "enum": ["INT", "TINYINT", "SMALLINT", "MEDIUMINT", "BIGINT", "FLOAT", "DOUBLE", "DECIMAL", "DATE", "DATETIME", "TIMESTAMP", "TIME", "YEAR", "CHAR", "VARCHAR", "BLOB", "TINYBLOB", "MEDIUMBLOB", "LONGBLOB"]
     },
     "dataLength" : {
