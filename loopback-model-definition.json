@@ -1,0 +1,136 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "id": "http://localhost:8090/loopback-model-definition.json",
+  "title": "LoopBack 3.0 Model Definition",
+  "description": "Defines a single loopback model in a json file. \r @see https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file",
+  "definitions": {
+    "idInjection" : {
+      "type" : "boolean",
+      "description": "Whether to automatically add an id property to the model:\n* `true`: `id` property is added to the model automatically. This is the default.\n* `false`: `id` property is not added to the model\n\nSee [ID properties](https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-IDproperties) for more information.\n**Optional**; default is true. If present, the `idInjection` property in options takes precedence.\n",
+      "default": true
+    },
+    "descriptionProp": {
+      "type" : ["string","array"],
+      "description": "Optional description.\rYou can split long descriptions into arrays of strings (lines) to keep line lengths manageable.\r```javascript\r[\r\t\"Lorem ipsum dolor sit amet, consectetur adipiscing elit\",\r\t\"sed do eiusmod tempor incididunt ut labore et dolore\",\r\t\"magna aliqua.\"\r]```",
+      "oneOf": [
+        {"type" : "string"},
+        {"type" : "array", "items": {"type":"string"}} 
+      ]
+    },
+    "property" : {
+      "type" : "object",
+      "properties" : {
+        "default" : {
+          "description" : "Default value for the property. The type must match that specified by `type`."
+        },
+        "defaultFn": {
+          "type": "string",
+          "description": "A name of the function to call to set the default value for the property. Must be one of:\n\n* `\"guid\"`: generate a new globally unique identifier (GUID) using the computer MAC address and current time (UUID version 1).\n* `\"uuid\"`: generate a new universally unique identifier (UUID) using the computer MAC address and current time (UUID version 1).\n* `\"uuidv4\"`: generate a new universally unique identifier using the UUID version 4 algorithm.\n* `\"now\"`: use the current date and time as returned by new `Date()`\n\nNOTE: For discussion of providing additional options, see [LoopBack issue 292](https://github.com/strongloop/loopback/issues/292) on GitHub.\n"
+        },
+        "description" : {"$ref" : "#/definitions/descriptionProp"},
+        "doc" : {
+          "type": "string",
+          "description": "**DEPRECATED** Use `description` instead"
+        },
+        "id" : {
+          "type": ["boolean", "number"],
+          "description": "Set the id property of the option to true to explicitly set this property as an id. Must be one of:\n\n* `true`: the property is an ID.\n* `false`: (or any value that converts to false): the property is not an ID (default).\n* Positive number, such as 1 or 2: the property is the index of a composite ID.\n\nSee https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Idproperty\n",
+          "default": false
+        },
+        "type" : {
+          "type": "string",
+          "description": "Can be any type described in [LoopBack types](https://docs.strongloop.com/display/APIC/LoopBack+types).",
+          "enum" : ["any","Array","Boolean","Buffer","Date","GeoPoint","null","Number","Object","String"]
+        },
+        "required" : {
+          "type": "boolean",
+          "description": "Whether a value for the property is required. If true, then adding or updating a model instance requires a value for the property.\n\nDefault is `false`.",
+          "default": false
+        },
+        "length" : {
+          "type": "integer",
+          "description": "Length of string properties"
+        },
+        "mysql" : {
+          "$ref" : "http://localhost:8090/mysql-connector-property-options.json"
+        }
+      },
+      "required":["type"] 
+    }
+  },
+  "properties": {
+    "name" : {
+      "type" : "string",
+      "description": "Model name.\rBy convention, uppercase first letter (e.g. `Customer`)"
+    },
+    "description" : {
+      "$ref" : "#/definitions/descriptionProp"
+    },
+    "plural" : {
+      "type" : "string",
+      "description": "Plural form of the model name.\n**Optional**: Defaults to plural of name property using standard English conventions.\n"
+    },
+    "base" : {
+      "type" : "string",
+      "description": "Name of another model that this model extends. The model will \"inherit\" properties and methods of the base model.\rTo exclude properties from base model set them to `null` (@see https://docs.strongloop.com/display/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Excludepropertiesfrombasemodel )"
+    },
+    "idInjection" : { "$ref" : "#/definitions/idInjection" },
+    "http" : {
+      "type" : "object",
+      "properties": {
+        "path" : {
+          "type" : "string",
+          "description": "Customized HTTP path for REST endpoints of this model."
+        }
+      }
+    },
+    "hidden": {
+      "type": "array",
+      "description": "A hidden property is not sent in the JSON data in the application's HTTP response.  The property value is an array of strings, and each string in the array must match a property name defined for the model.",
+      "items": {
+        "description": "Key/name of property",
+        "type": "string"
+      }
+    },
+    "strict" : {
+      "type" : ["string","boolean"],
+      "description": "Specifies whether the model accepts only predefined properties or not. One of:\n* `true`: Only properties defined in the model are accepted. Use if you want to ensure the model accepts only predefined properties.\n* `false`: The model is an open model and accepts all properties, including ones not predefined in the model. This mode is useful to store free-form JSON data to a schema-less database such as MongoDB.\n* `\"validate\"`: The unknown properties will be reported as validation errors.\n* `\"throw\"`: Throws an exception if properties not defined for the model are used in an operation.\n\n**Optional**. Defaults to `false` unless the data source is backed by a relational database such as Oracle or MySQL.\n",
+      "enum": [true, false, "validate", "throw"]
+    },
+    "options" : {
+      "type" : "object",
+      "properties" : {
+        "idInjection" : { "$ref" : "#/definitions/idInjection" },
+        "validateUpsert" : {
+          "type": "boolean",
+          "description": "By default, the [`upsert()`](http://apidocs.strongloop.com/loopback/#persistedmodel-upsert) method (also known as `updateOrCreate()` ) does not enforce valid model data. Instead, it logs validation errors to the console. This is not optimal, but necessary to preserve backwards compatibility with older 2.x versions.\n\n* `true` : ensure that `upsert()` returns an error when validation fails. The next major version of LoopBack will enable this option (set the property to true) by default.\n* `false` to prevent `upsert()` from calling any validators at all.\n\nBy default, `upsert()` calls all validators and reports any validation errors to the console log.\n"
+        }
+      }
+    },
+    "properties" : {
+      "type": "object",
+      "description": "The properties key defines one or more  properties, each of which is an object that has keys described in the following table.",
+      "additionalProperties": { "$ref" : "#/definitions/property" }
+    },
+    "relations" : {
+      "type": "object",
+      "description": "TODO",
+      "additionalProperties": { "$ref" : "#/definitions/property" }
+    },
+    "acls" : {
+      "type": "object",
+      "description": "TODO",
+      "additionalProperties": { "$ref" : "#/definitions/property" }
+    },
+    "scopes" : {
+      "type": "object",
+      "description": "TODO",
+      "additionalProperties": { "$ref" : "#/definitions/property" }
+    },
+    "mysql" : {
+      "$ref" : "http://localhost:8090/mysql-connector-model-options.json"
+    }
+    
+  },
+  "required": ["name"]
+}

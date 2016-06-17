@@ -1,0 +1,11 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "id": "http://localhost:8090/mysql-connector-model-options.json",
+  "description": "Model options specific to MySQL",
+  "type" : "object",
+  "properties": {
+    "table" : {
+      "type": "string"
+    }
+  }
+}

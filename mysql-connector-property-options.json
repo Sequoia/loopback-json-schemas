@@ -1,0 +1,24 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "id": "mysql-connector-property-options-3.0",
+  "description": "Model property options specific to MySQL",
+  "properties": {
+    "columnName" : {
+      "type" : "string",
+      "description" : "Override for default column name"
+    },
+    "dataType" : {
+      "type" : "string",
+      "description" : "MySQL datatype\r@see",
+      "enum": ["INT", "TINYINT", "SMALLINT", "MEDIUMINT", "BIGINT", "FLOAT", "DOUBLE", "DECIMAL", "DATE", "DATETIME", "TIMESTAMP", "TIME", "YEAR", "CHAR", "VARCHAR", "BLOB", "TINYBLOB", "MEDIUMBLOB", "LONGBLOB"]
+    },
+    "dataLength" : {
+      "type" : "integer",
+      "description" : "size for varchar, int, etc."
+    },
+    "nullable" : {
+      "type" : "string",
+      "enum": [ "Y", "N" ]
+    }
+  }
+}
