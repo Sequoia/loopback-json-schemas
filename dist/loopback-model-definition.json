@@ -1,23 +1,16 @@
 {
   "$schema" : "http://json-schema.org/draft-04/schema#",
-  "id": "http://localhost:8090/loopback-model-definition.json",
+  "id": "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/loopback-model-definition.json",
   "title": "LoopBack 3.0 Model Definition",
-  "description": "Defines a single loopback model in a json file. \r @see https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file",
+  "description": "Defines a single loopback model in a json file. \r@see https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file",
   "definitions": {
     "idInjection" : {
       "type" : "boolean",
       "description": "Whether to automatically add an id property to the model:\n* `true`: `id` property is added to the model automatically. This is the default.\n* `false`: `id` property is not added to the model\n\nSee [ID properties](https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-IDproperties) for more information.\n**Optional**; default is true. If present, the `idInjection` property in options takes precedence.\n",
       "default": true
     },
-    "descriptionProp": {
-      "type" : ["string","array"],
-      "description": "Optional description.\rYou can split long descriptions into arrays of strings (lines) to keep line lengths manageable.\r```javascript\r[\r\t\"Lorem ipsum dolor sit amet, consectetur adipiscing elit\",\r\t\"sed do eiusmod tempor incididunt ut labore et dolore\",\r\t\"magna aliqua.\"\r]```",
-      "oneOf": [
-        {"type" : "string"},
-        {"type" : "array", "items": {"type":"string"}} 
-      ]
-    },
     "property" : {
+      "description": "Defines a single property for a model.\rExample:\r```\n    \"age\" : {\n      \"type\": \"number\"\n    }\n```\n",
       "type" : "object",
       "properties" : {
         "default" : {
@@ -27,7 +20,7 @@
           "type": "string",
           "description": "A name of the function to call to set the default value for the property. Must be one of:\n\n* `\"guid\"`: generate a new globally unique identifier (GUID) using the computer MAC address and current time (UUID version 1).\n* `\"uuid\"`: generate a new universally unique identifier (UUID) using the computer MAC address and current time (UUID version 1).\n* `\"uuidv4\"`: generate a new universally unique identifier using the UUID version 4 algorithm.\n* `\"now\"`: use the current date and time as returned by new `Date()`\n\nNOTE: For discussion of providing additional options, see [LoopBack issue 292](https://github.com/strongloop/loopback/issues/292) on GitHub.\n"
         },
-        "description" : {"$ref" : "#/definitions/descriptionProp"},
+        "description" : {"$ref" : "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/shared-refs.json#/definitions/descriptionProp"},
         "doc" : {
           "type": "string",
           "description": "**DEPRECATED** Use `description` instead"
@@ -52,7 +45,7 @@
           "description": "Length of string properties"
         },
         "mysql" : {
-          "$ref" : "http://localhost:8090/mysql-connector-property-options.json"
+          "$ref" : "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/mysql-connector-property-options.json"
         }
       },
       "required":["type"] 
@@ -64,7 +57,7 @@
       "description": "Model name.\rBy convention, uppercase first letter (e.g. `Customer`)"
     },
     "description" : {
-      "$ref" : "#/definitions/descriptionProp"
+      "$ref" : "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/shared-refs.json#/definitions/descriptionProp"
     },
     "plural" : {
       "type" : "string",
@@ -128,7 +121,7 @@
       "additionalProperties": { "$ref" : "#/definitions/property" }
     },
     "mysql" : {
-      "$ref" : "http://localhost:8090/mysql-connector-model-options.json"
+      "$ref" : "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/mysql-connector-model-options.json"
     }
     
   },

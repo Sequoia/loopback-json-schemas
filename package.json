@@ -1,0 +1,33 @@
+{
+  "name": "loopback-json-schemas",
+  "version": "0.0.1",
+  "description": "JSONSchema's for the LoopBack framework",
+  "main": "index.js",
+  "scripts": {
+    "serve": "http-server src -a localhost -p8090",
+    "build": "rimraf dist/* && cp -r src/* dist/ && npm run rewrite-urls",
+    "rewrite-urls" : "replace 'http://localhost:8090' 'https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist' dist/*",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sequoia/loopback-json-schemas.git"
+  },
+  "keywords": [
+    "loopback",
+    "jsonschema",
+    "vscode",
+    "intellisense"
+  ],
+  "author": "Sequoia McDowell <sequoia.mcdowell@gmail.com> (http://sequoia.makes.software/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sequoia/loopback-json-schemas/issues"
+  },
+  "homepage": "https://github.com/Sequoia/loopback-json-schemas#readme",
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "replace": "^0.3.0",
+    "rimraf": "^2.5.2"
+  }
+}

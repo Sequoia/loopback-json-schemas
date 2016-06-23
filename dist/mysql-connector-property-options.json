@@ -1,6 +1,6 @@
 {
   "$schema" : "http://json-schema.org/draft-04/schema#",
-  "id": "mysql-connector-property-options-3.0",
+  "id": "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/mysql-connector-property-options.json",
   "description": "Model property options specific to MySQL",
   "type": "object",
   "properties": {

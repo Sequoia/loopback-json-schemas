@@ -1,0 +1,16 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "id": "http://localhost:8090/shared-refs.json",
+  "title": "Shared LoopBack json property types",
+  "description": "Definitions that are used in multiple places/schemas",
+  "definitions": {
+    "descriptionProp": {
+      "type" : ["string","array"],
+      "description": "Optional description.\rYou can split long descriptions into arrays of strings (lines) to keep line lengths manageable.\r```javascript\r[\r\t\"Lorem ipsum dolor sit amet, consectetur adipiscing elit\",\r\t\"sed do eiusmod tempor incididunt ut labore et dolore\",\r\t\"magna aliqua.\"\r]```",
+      "oneOf": [
+        {"type" : "string"},
+        {"type" : "array", "items": {"type":"string"}} 
+      ]
+    }
+  }
+}

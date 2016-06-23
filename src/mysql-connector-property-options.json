@@ -1,0 +1,25 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "id": "http://localhost:8090/mysql-connector-property-options.json",
+  "description": "Model property options specific to MySQL",
+  "type": "object",
+  "properties": {
+    "columnName" : {
+      "type" : "string",
+      "description" : "Override for default column name"
+    },
+    "dataType" : {
+      "type" : "string",
+      "description" : "MySQL datatype\r @see https://docs.strongloop.com/display/APIC/MySQL+connector#MySQLconnector-Usingthedatatypefield/columnoptionwithMySQL",
+      "enum": ["INT", "TINYINT", "SMALLINT", "MEDIUMINT", "BIGINT", "FLOAT", "DOUBLE", "DECIMAL", "DATE", "DATETIME", "TIMESTAMP", "TIME", "YEAR", "CHAR", "VARCHAR", "BLOB", "TINYBLOB", "MEDIUMBLOB", "LONGBLOB"]
+    },
+    "dataLength" : {
+      "type" : "integer",
+      "description" : "size for varchar, int, etc."
+    },
+    "nullable" : {
+      "type" : "string",
+      "enum": [ "Y", "N" ]
+    }
+  }
+}

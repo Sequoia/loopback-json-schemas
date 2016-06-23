@@ -1,0 +1,11 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/mysql-connector-model-options.json",
+  "description": "Model options specific to MySQL",
+  "type" : "object",
+  "properties": {
+    "table" : {
+      "type": "string"
+    }
+  }
+}
