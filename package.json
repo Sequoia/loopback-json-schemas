@@ -6,8 +6,7 @@
   "scripts": {
     "serve": "http-server src -a localhost -p8090",
     "build": "rimraf dist/* && cp -r src/* dist/ && npm run rewrite-urls",
-    "rewrite-urls" : "replace 'http://localhost:8090' 'https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist' dist/*",
-    "prepublish": "npm run build"
+    "rewrite-urls" : "replace 'http://localhost:8090' 'https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist' dist/*"
   },
   "repository": {
     "type": "git",
