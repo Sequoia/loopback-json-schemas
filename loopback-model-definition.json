@@ -34,7 +34,7 @@
         },
         "id" : {
           "type": ["boolean", "number"],
-          "description": "Set the id property of the option to true to explicitly set this property as an id. Must be one of:\n\n* `true`: the property is an ID.\n* `false`: (or any value that converts to false): the property is not an ID (default).\n* Positive number, such as 1 or 2: the property is the index of a composite ID.\n\nSee https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Idproperty\n",
+          "description": "Set the id property of the option to true to explicitly set this property as an id. Must be one of:\n\n* `true`: the property is an ID.\n* `false`: (or any value that converts to false): the property is not an ID (default).\n* Positive number, such as 1 or 2: the property is the index of a composite ID.\n\nSee https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-IDproperties\n",
           "default": false
         },
         "type" : {
