@@ -30,6 +30,7 @@
           "description": "Set the id property of the option to true to explicitly set this property as an id. Must be one of:\n\n* `true`: the property is an ID.\n* `false`: (or any value that converts to false): the property is not an ID (default).\n* Positive number, such as 1 or 2: the property is the index of a composite ID.\n\nSee https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-IDproperties\n",
           "default": false
         },
+        "index" : { "$ref" : "#/definitions/propertyIndex" },
         "type" : {
           "type": "string",
           "description": "Can be any type described in [LoopBack types](https://docs.strongloop.com/display/APIC/LoopBack+types).",
@@ -49,6 +50,31 @@
         }
       },
       "required":["type"] 
+    },
+    "modelIndex" : {
+      "descripton" : "Single index\n```\n\"field-name\":-1\n```",
+      "type" : "number",
+      "enum" : [-1, 1]
+    },
+    "modelIndexOptions" : {
+      "type":"object",
+      "properties": {
+        "unique" :{
+          "type" : "boolean"
+        }
+      }
+    },
+    "propertyIndex" : {
+      "description" : "Add an index to a property\n@example\n```\n{\n  \"property_foo\": { \"type\": \"String\", \"index\": true },\n  \"email\": { \"type\": \"String\", \"index\": {\"unique\": true} },\n}\n```\n",
+      "anyOf": [
+        {"type" : "boolean"},
+        {
+          "type" : "object",
+          "properties" : {
+            "unique" : { "type" : "boolean" }
+          }
+        }
+      ]
     }
   },
   "properties": {
@@ -122,8 +148,55 @@
     },
     "mysql" : {
       "$ref" : "http://localhost:8090/mysql-connector-model-options.json"
+    },
+    "indexes" : {
+      "description": "Declare indexes for a model \n@example\n```\n\"indexes\": {\n  \"name_age_index\": {\n    \"keys\": {\"name\": 1, \"age\": -1}\n  },\n  \"age_index\": {\"age\": -1}\n}\n```\n@see https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Indexes\n",
+      "type" : "object",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "keys" : {
+                "type" : "object",
+                "description": "multiple `\"fieldname\" : 1|-1` indexes",
+                "additionalProperties": {
+                  "$ref" : "#/definitions/modelIndex"
+                }
+              },
+              "options" : { "$ref" : "#/definitions/modelIndexOptions" }
+            },
+            "additionalProperties" : false
+          },
+          {
+            "type" : "object",
+            "properties" : {
+              "options" : { "$ref" : "#/definitions/modelIndexOptions" }
+            },
+            "additionalProperties": {
+              "$ref" : "#/definitions/modelIndex"
+            }
+          },
+          {
+            "type" : "object",
+            "description" : "MySQL indexes\n@see http://dev.mysql.com/doc/refman/5.7/en/mysql-indexes.html\n@see https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-MySQLindexes",
+            "properties": {
+              "columns" : {
+                "type" : "string",
+                "description": "Comma separated list of column names"
+              },
+              "kind" : {
+                "type" : "string",
+                "description": "type of mysql index",
+                "default": "UNIQUE",
+                "enum" : ["PRIMARY KEY", "UNIQUE", "INDEX", "FULLTEXT"]
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
     }
-    
   },
   "required": ["name"]
 }
