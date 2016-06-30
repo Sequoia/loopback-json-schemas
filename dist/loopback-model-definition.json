@@ -30,11 +30,8 @@
           "description": "Set the id property of the option to true to explicitly set this property as an id. Must be one of:\n\n* `true`: the property is an ID.\n* `false`: (or any value that converts to false): the property is not an ID (default).\n* Positive number, such as 1 or 2: the property is the index of a composite ID.\n\nSee https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-IDproperties\n",
           "default": false
         },
-        "type" : {
-          "type": "string",
-          "description": "Can be any type described in [LoopBack types](https://docs.strongloop.com/display/APIC/LoopBack+types).",
-          "enum" : ["any","Array","Boolean","Buffer","Date","GeoPoint","null","Number","Object","String"]
-        },
+        "index" : { "$ref" : "#/definitions/propertyIndex" },
+        "type" : { "$ref" : "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/shared-refs.json#/definitions/loopbackDatatypeProperty"},
         "required" : {
           "type": "boolean",
           "description": "Whether a value for the property is required. If true, then adding or updating a model instance requires a value for the property.\n\nDefault is `false`.",
@@ -49,6 +46,31 @@
         }
       },
       "required":["type"] 
+    },
+    "modelIndex" : {
+      "descripton" : "Single index\n```\n\"field-name\":-1\n```",
+      "type" : "number",
+      "enum" : [-1, 1]
+    },
+    "modelIndexOptions" : {
+      "type":"object",
+      "properties": {
+        "unique" :{
+          "type" : "boolean"
+        }
+      }
+    },
+    "propertyIndex" : {
+      "description" : "Add an index to a property\n@example\n```\n{\n  \"property_foo\": { \"type\": \"String\", \"index\": true },\n  \"email\": { \"type\": \"String\", \"index\": {\"unique\": true} },\n}\n```\n",
+      "anyOf": [
+        {"type" : "boolean"},
+        {
+          "type" : "object",
+          "properties" : {
+            "unique" : { "type" : "boolean" }
+          }
+        }
+      ]
     }
   },
   "properties": {
@@ -85,6 +107,13 @@
         "type": "string"
       }
     },
+    "protected" : {
+      "type": "array",
+      "description": "A protected property is not sent in the JSON data in the application's HTTP response if the object is nested inside another object.\r@see https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Protectedproperties",
+      "items": {
+        "type": "string"
+      }
+    },
     "strict" : {
       "type" : ["string","boolean"],
       "description": "Specifies whether the model accepts only predefined properties or not. One of:\n* `true`: Only properties defined in the model are accepted. Use if you want to ensure the model accepts only predefined properties.\n* `false`: The model is an open model and accepts all properties, including ones not predefined in the model. This mode is useful to store free-form JSON data to a schema-less database such as MongoDB.\n* `\"validate\"`: The unknown properties will be reported as validation errors.\n* `\"throw\"`: Throws an exception if properties not defined for the model are used in an operation.\n\n**Optional**. Defaults to `false` unless the data source is backed by a relational database such as Oracle or MySQL.\n",
@@ -102,28 +131,180 @@
     },
     "properties" : {
       "type": "object",
-      "description": "The properties key defines one or more  properties, each of which is an object that has keys described in the following table.",
-      "additionalProperties": { "$ref" : "#/definitions/property" }
+      "description": "The properties key defines one or more  properties, each of which is an object that has keys described in the following table.\rProperties may be defined by a type (`\"string\"`), an object, or `null|false` to exclude a property from a base model.",
+      "additionalProperties": { 
+        "anyOf": [
+          { "$ref" : "#/definitions/property" },
+          { "$ref" : "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/shared-refs.json#/definitions/loopbackDatatypeProperty" },
+          { 
+            "title" : "excluded base property",
+            "description" : "exclude properties from base model with null or false\r@see https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Excludepropertiesfrombasemodel",
+            "anyOf" : [
+              {"type" : "boolean", "enum" : [false] },
+              {"type" : "null"}
+            ]
+          }
+        ]
+      }
     },
     "relations" : {
       "type": "object",
       "description": "TODO",
-      "additionalProperties": { "$ref" : "#/definitions/property" }
+      "additionalProperties": {
+        "type" : "object",
+        "description": "Relationships. \r@see https://docs.strongloop.com/display/APIC/Creating+model+relations",
+        "properties": {
+          "model": {
+            "description": "Model name",
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string",
+            "enum" : ["hasMany","belongsTo","hasAndBelongsToMany"]
+          },
+          "keyThrough": {
+            "description": "A hasManyThrough relation has a keyThrough property that indicates the foreign key property (field) name.  If not specified, it defaults to the toModelName with Id appended;\r@see https://docs.strongloop.com/display/APIC/HasManyThrough+relations#HasManyThroughrelations-Definingtheforeignkeyproperty",
+            "type" : "string"
+          },
+          "foreignKey": {
+            "description": "Specify custom foreign key name (for *this* model) on related model",
+            "type": "string"
+          },
+          "through" : {
+            "type": "string",
+            "description": "Through model name" 
+          }
+        },
+        "dependencies": {
+          "keyThrough" : {
+            "required": ["through"]
+          },
+          "through" : {
+            "properties" : {
+              "type" : {
+                "type": "string",
+                "description": "`keyThrough`, `through` property(s) only valid with `hasMany` relationship type",
+                "enum" : ["hasMany"]
+              }
+            }
+          }
+        },
+        "required": ["model","type"]
+      }
     },
     "acls" : {
-      "type": "object",
-      "description": "TODO",
-      "additionalProperties": { "$ref" : "#/definitions/property" }
+      "type": "array",
+      "description": "The value of the `acls` key is an array of objects that describes the access controls for the model.\n\n```\n\"acls\": [\n    {\n      \"permission\": \"ALLOW\",\n      \"principalType\": \"ROLE\",\n      \"principalId\": \"$everyone\",\n      \"property\": \"myMethod\"\n    }, \n    ...\n]\n```\n\r@see https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-ACLs",
+      "items": {
+        "type": "object",
+        "description": "individual ACL rule",
+        "properties": {
+          "accessType": {
+            "type" : "string",
+            "description" : "The type of access to apply. One of:\n* READ\n* WRITE\n* EXECUTE\n* \\* (default)\n\n",
+            "enum": ["READ","WRITE","EXECUTE","*"],
+            "default": "READ"
+          },
+          "permission": {
+            "type" : "string",
+            "description" : "Type of permission granted. Required.\nOne of:\n\n* **ALLOW** - Explicitly grants access to the resource.\n* **DENY** - Explicitly denies access to the resource.\n",
+            "enum" : ["ALLOW","DENY"],
+            "default": "DENY"
+          },
+          "principalId": {
+            "description" : "Principal identifier. Required.\nThe value must be one of:\n* A user ID (`String|number|any`)\n* One of the following predefined dynamic roles:\n  * `$everyone` - Everyone\n  * `$owner` - Owner of the object\n  * `$related` - Any user with a relationship to the object\n  * `$authenticated` - Authenticated user\n  * `$unauthenticated` - Unauthenticated user\n* A static role name\n",
+            "anyOf" : [
+              {
+                "type" : "string",
+                "description": "predefined dynamic roles",
+                "enum" : ["$everyone", "$owner","$related","$authenticated","$unauthenticated"]
+              },
+              {
+                "description": "A user ID (String|number|any) OR a static role name" 
+              }
+            ],
+            "default": "$everyone"
+          },
+          "principalType": {
+            "type" : "string",
+            "description" : "Type of the principal. Required.\nOne of:\n* Application\n* User\n* Role\n",
+            "enum": ["Application","User","Role"],
+            "default": "Role"
+          },
+          "property": {
+            "description" : "Specifies a property/method/relation on a given model. It further constrains where the ACL applies.\nCan be:\n* A string, for example: `\"create\"`\n* An array of strings, for example: `[\"create\", \"update\"]`\n",
+            "anyOf" :[
+              { "type": "string" },
+              { "type": "array", "items" : [ {"type" : "string"} ] }
+            ]
+          }
+        },
+        "required" : ["permission", "principalId", "principalType"]
+      }
     },
     "scopes" : {
       "type": "object",
-      "description": "TODO",
-      "additionalProperties": { "$ref" : "#/definitions/property" }
+      "description": "Scopes enable you to specify commonly-used queries that you can reference as method calls on a model.\nThe scopes key defines one or more scopes (named queries) for models. A scope maps a name to a predefined filter object to be used by the model's `find()` method\n\n@example\n```\n\"scopes\": {\n    \"vips\": {\"where\": {\"vip\": true}}, \n    \"top5\": {\"limit\": 5, \"order\": \"age\"}\n}\n```\n\n@see https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Scopes\n",
+      "additionalProperties": {
+        "$ref" : "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/loopback-model-query-parameters.json#"
+      }
+    },
+    "scope" : {
+      "title" : "Default scope",
+      "description": "If you wish for a scope to be applied across all queries to the model, you can use this property to set the default scope for the model itself.\r@see https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Defaultscope",
+      "$ref" : "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/loopback-model-query-parameters.json#"
     },
     "mysql" : {
       "$ref" : "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/mysql-connector-model-options.json"
+    },
+    "indexes" : {
+      "description": "Declare indexes for a model \n@example\n```\n\"indexes\": {\n  \"name_age_index\": {\n    \"keys\": {\"name\": 1, \"age\": -1}\n  },\n  \"age_index\": {\"age\": -1}\n}\n```\n@see https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Indexes\n",
+      "type" : "object",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "keys" : {
+                "type" : "object",
+                "description": "multiple `\"fieldname\" : 1|-1` indexes",
+                "additionalProperties": {
+                  "$ref" : "#/definitions/modelIndex"
+                }
+              },
+              "options" : { "$ref" : "#/definitions/modelIndexOptions" }
+            },
+            "additionalProperties" : false
+          },
+          {
+            "type" : "object",
+            "properties" : {
+              "options" : { "$ref" : "#/definitions/modelIndexOptions" }
+            },
+            "additionalProperties": {
+              "$ref" : "#/definitions/modelIndex"
+            }
+          },
+          {
+            "type" : "object",
+            "description" : "MySQL indexes\n@see http://dev.mysql.com/doc/refman/5.7/en/mysql-indexes.html\n@see https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-MySQLindexes",
+            "properties": {
+              "columns" : {
+                "type" : "string",
+                "description": "Comma separated list of column names"
+              },
+              "kind" : {
+                "type" : "string",
+                "description": "type of mysql index",
+                "default": "UNIQUE",
+                "enum" : ["PRIMARY KEY", "UNIQUE", "INDEX", "FULLTEXT"]
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
     }
-    
   },
   "required": ["name"]
 }

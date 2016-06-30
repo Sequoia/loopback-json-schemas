@@ -1,0 +1,177 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/loopback-model-query-parameters.json",
+  "title": "LoopBack 3.0 Query Parameters",
+  "description": "Query parameters for `Model.find()` etc. as well as model `scopes`. Fields, limit, order, etc. \r@see https://docs.strongloop.com/display/APIC/Querying+data",
+  "definitions" : {
+    "stringInclude" : {
+      "type" : "string",
+      "description": "Name of a related model"
+    },
+    "arrayInclude" : {
+      "type": "array",
+      "items": {
+        "$ref" : "#/properties/include"
+      }
+    },
+    "objectInclude" : {
+      "type": "object",
+      "description": "A map of related models (key) and sub-includes (value)", 
+      "additionalProperties": {
+        "$ref" : "#/properties/include"
+      }
+    },
+    "filterInclude" : {
+      "type" : "object",
+      "description": "For complex include conditions\r@see https://docs.strongloop.com/display/APIC/Include+filter#Includefilter-Includewithfilters",
+      "properties": {
+        "relation" : {
+          "$ref": "#/definitions/stringInclude"
+        },
+        "scope" : {
+          "$ref": "#"
+        } 
+      }
+    },
+    "stringOrder" : {
+      "description": "order by a single property. Must specify `ASC` or `DESC`.\r```\r\"order_date ASC\"\r\"name DESC\"\r```",
+      "type": "string",
+      "pattern": "\\w+\\s(DESC|ASC)$"
+    },
+    "arrayOrder" : {
+      "description": "Order by multiple fields",
+      "type": "array",
+      "items": {
+        "$ref" : "#/definitions/stringOrder"
+      }
+    },
+    "whereObject" : {
+      "description": "Specify search criteria; similar to a WHERE clause in SQL. \r```\r\"field\":\"value\" // equals condition (field = value)\r\"field\":{\"gt\":5}// condition OBJECT specifying `gt`,`lt`,`neq`, etc.\r\"or\":[{\"field\":/*condition*/}],{\"field\":/*condition*/}] // or clause with 2 or more conditions\r\"and\":[[{\"field\":/*condition*/}],{\"field\":/*condition*/}]] // and clause with 2 or more conditions\r```\r@see https://docs.strongloop.com/display/APIC/Where+filter",
+      "type": "object",
+      "properties": {
+        "or" : { "$ref": "#/definitions/whereOr" },
+        "and": { "$ref": "#/definitions/whereAnd" } 
+      },
+      "additionalProperties": {
+        "anyOf" : [
+          { "$ref": "#/definitions/whereCondition" },
+          { "$ref": "#/definitions/whereEquals" }
+        ]
+      }
+    },
+    "whereAnd" : {
+      "type" : "array",
+      "description": "Logical AND operator",
+      "minItems": 2,
+      "items": { "$ref" : "#/definitions/whereObject" }
+    },
+    "whereOr" : {
+      "type" : "array",
+      "description": "Logical OR operator",
+      "minItems": 2,
+      "items": { "$ref" : "#/definitions/whereObject" }
+    },
+    "whereEquals" : {
+      "type": "string",
+      "description": "Equals clause\r```\r{\"property\": \"value\"}\r```"
+    },
+    "whereCondition": {
+      "type" : "object",
+      "description" : "Condition for a single property.\r@see https://docs.strongloop.com/display/APIC/Where+filter",
+      "properties": {
+        "gt" : {
+          "type" : "number",
+          "description": "Numerical greater than (>). Valid only for numerical and date values.\rFor Geopoint values, the units are in miles by default.\r@see http://apidocs.strongloop.com/loopback-datasource-juggler/#geopoint"
+        },
+        "gte" : {
+          "type" : "number",
+          "description": "Numerical greater than or equal (>=). Valid only for numerical and date values.\rFor Geopoint values, the units are in miles by default.\r@see http://apidocs.strongloop.com/loopback-datasource-juggler/#geopoint"
+        },
+        "lt" : {
+          "type" : "number",
+          "description": "Numerical less than (<). Valid only for numerical and date values.\rFor Geopoint values, the units are in miles by default.\r@see http://apidocs.strongloop.com/loopback-datasource-juggler/#geopoint"
+        },
+        "lte" : {
+          "type" : "number",
+          "description": "Numerical less than or equal (<). Valid only for numerical and date values.\rFor Geopoint values, the units are in miles by default.\r@see http://apidocs.strongloop.com/loopback-datasource-juggler/#geopoint"
+        },
+        "between" : {
+          "type" : "array",
+          "description": "True if the value is between the two specified values: greater than or equal to first value and less than or equal to second value.\rFor geolocation values, the units are in miles by default. \r@see http://apidocs.strongloop.com/loopback-datasource-juggler/#geopoint",
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "inq" : {
+          "type": "array",
+          "description": "IN an array of values.",
+          "minItems": 1
+        },
+        "nin" : {
+          "type": "array",
+          "description": "NOT IN an array of values.",
+          "minItems": 1
+        },
+        "near" : {
+          "type": "string",
+          "description": "For geolocations, return the closest points, sorted in order of distance. \r```\r\"near\":\"32.324,72.01\"\r```\rUse with `limit` to return the `n` closest points.",
+          "pattern": "[\\d\\.]+,[\\d\\.]+"
+        },
+        "neq" : {
+          "description": "Not equal (!=)"
+        },
+        "like" : {
+          "description": "LIKE operator for use with regular expressions. The regular expression format depends on the backend data source.\r```\r\"title\" : {\r\t\"like\": \"M.+st\"\r}\r```",
+          "type": "string"
+        },
+        "nlike" : {
+          "description": "NOT LIKE operator for use with regular expressions. The regular expression format depends on the backend data source.\r```\r\"title\" : {\r\t\"nlike\": \"DRAFT.+\"\r}\r```",
+          "type": "string"
+        },
+        "regexp" : {
+          "type": "string",
+          "description": "Regular expression."
+        }
+      },
+      "additionalProperties": false,
+      "minProperties": 1
+    }
+  },
+  "properties": {
+    "fields" : {
+      "description": "Specifies properties (fields) to include or exclude from the results.\rBy default, queries return all model properties in results.  However, if you specify at least one fields filter with a value of true, then by default the query will include *only* those you specifically include with filters.\r@see https://docs.strongloop.com/display/APIC/Fields+filter",
+      "type": "object",
+      "additionalProperties": {
+        "description": "Name of a field to include or remove:\r`{ fields: {id: true, make: true, model: true} }`",
+        "type":"boolean"
+      }
+    },
+    "include" : {
+      "description": "An include filter enables you to include results from related models in a query, for example models that have `belongsTo` or `hasMany` relations, to optimize the number of requests.\r@see https://docs.strongloop.com/display/APIC/Include+filter",
+      "anyOf": [
+        { "$ref" : "#/definitions/stringInclude" },
+        { "$ref" : "#/definitions/arrayInclude" },
+        { "$ref" : "#/definitions/objectInclude" },
+        { "$ref" : "#/definitions/filterInclude" }
+      ]
+    },
+    "limit" : {
+      "type": "integer",
+      "description": "Limit the number of instances to return.",
+      "minimum": 1
+    },
+    "order" : {
+      "description": "An order filter specifies how to sort the results: ascending (ASC) or descending (DESC) based on the specified property.",
+      "anyOf": [
+        {"$ref": "#/definitions/stringOrder"},
+        {"$ref": "#/definitions/arrayOrder"}
+      ]
+    },
+    "skip" : {
+      "type" : "integer",
+      "description": "Skip the specified number of instances."
+    },
+    "where" : {
+      "$ref" : "#/definitions/whereObject"
+    }
+  }
+}
