@@ -11,6 +11,21 @@
         {"type" : "string"},
         {"type" : "array", "items": {"type":"string"}} 
       ]
+    },
+    "loopbackDatatypeProperty" : {
+      "description" : "a single type or an array of types",
+      "anyOf" : [
+        {"$ref" : "#/definitions/loopbackDatatypes"},
+        {
+          "type": "array",
+          "items" : {"$ref" : "#/definitions/loopbackDatatypes"}
+        }
+      ]
+    },
+    "loopbackDatatypes" : {
+      "type": "string",
+      "description": "Any type described in [LoopBack types](https://docs.strongloop.com/display/APIC/LoopBack+types).",
+      "enum" : ["any","array","boolean","buffer","date","geopoint","null","number","object","string"]
     }
   }
 }

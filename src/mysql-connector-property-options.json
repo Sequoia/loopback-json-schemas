@@ -20,6 +20,14 @@
     "nullable" : {
       "type" : "string",
       "enum": [ "Y", "N" ]
+    },
+    "dataScale" : {
+      "type" : "number",
+      "description": "Numeric data scale"
+    },
+    "dataPrecision" : {
+      "type" : "number",
+      "description": "Numeric data precision"
     }
   }
 }
