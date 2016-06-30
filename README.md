@@ -3,7 +3,9 @@ This repository contains [JSONSchemas](http://json-schema.org/) for the [LoopBac
 
 :warning: **These schemas are a work in progress & _do not_ capture every feature & setting.** [Consult docs](https://docs.strongloop.com/display/APIC/Using+LoopBack+with+IBM+API+Connect) for best results :+1:.
 
-:information_source: These schemas target loopback **version 3** which is not 100% compatible with most loopback applications currently in production. I chose to target the next version in the interest of being forward looking & because time is limited. 
+:information_source: These schemas target loopback **version 3** which is not 100% compatible with most loopback applications currently in production. I chose to target the next version in the interest of being forward looking & because time is limited.
+
+[Roadmap in `TODO.md`](TODO.md). :point_left: This is where to contribute if you'd like to help! 
 
 # Using the schemas
 ## Method 1. Point json files to schemas
@@ -28,7 +30,7 @@ Edit your `jsconfig.json` in VS Code to [map schemas to file paths in your proje
 This will automatically link schemas to paths so you don't have to use **Method 1**. [Read more](https://code.visualstudio.com/Docs/languages/json#_json-schemas-settings).
 
 ## Method 3. Use the VS Code plugin
-*COMING SOON! :smile_cat: :watch:*
+:warning: WIP! [VS Code Plugin](https://marketplace.visualstudio.com/items?itemName=sequoia.loopback-json-schemas)
 
 This will automatically link schemas to paths so you don't have to use **Method 2**.
 
