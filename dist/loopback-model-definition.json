@@ -160,7 +160,7 @@
           },
           "type" : {
             "type" : "string",
-            "enum" : ["hasMany","belongsTo","hasAndBelongsToMany"]
+            "enum" : ["hasOne","hasMany","belongsTo","hasAndBelongsToMany"]
           },
           "keyThrough": {
             "description": "A hasManyThrough relation has a keyThrough property that indicates the foreign key property (field) name.  If not specified, it defaults to the toModelName with Id appended;\r@see https://docs.strongloop.com/display/APIC/HasManyThrough+relations#HasManyThroughrelations-Definingtheforeignkeyproperty",
