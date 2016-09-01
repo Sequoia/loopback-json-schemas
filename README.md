@@ -5,7 +5,10 @@ This repository contains [JSONSchemas](http://json-schema.org/) for the [LoopBac
 
 :information_source: These schemas target loopback **version 3** which is not 100% compatible with most loopback applications currently in production. I chose to target the next version in the interest of being forward looking & because time is limited.
 
-[Roadmap in `TODO.md`](TODO.md). :point_left: This is where to contribute if you'd like to help! 
+# Contributing
+
+* [Roadmap in `TODO.md`](TODO.md). :point_left: This is where to contribute if you'd like to help!
+* **In order to get your changes into the `dist` version, you must run `npm run build`!** Please do this before submitting PR. 
 
 # Using the schemas
 ## Method 1. Point json files to schemas
