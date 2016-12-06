@@ -4,7 +4,7 @@
   
   * [ ] `/*/models/*.json` (model definitions)
   * [X] ~~*`/server/datasources.json`*~~
-  * [ ] `/server/model-config.json`
+  * [X] ~~*`/server/model-config.json`*~~
 * [ ] Document working on plugin
 * [ ] Document working on schemas
 
