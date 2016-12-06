@@ -14,12 +14,13 @@
       },
       "connector": {
         "type": "string",
-        "description": "Whether the model API is exposed.\r\rIf `true`, then the model is exposed over REST. Does not affect accessibility of Node API.",
-        "default": false
+        "description": "LoopBack connector to use",
+        "default" : "memory",
+        "enum" : ["memory", "oracle", "mongodb", "mysql", "postgresql", "soap", "mssql", "rest", "loopback-component-sotrage"]
       }
     },
     "additionalProperties" : {
-      "description": "Various connection settings are required, depending on the connector. For information on the specific properties that each connector supports, see:\r* https://docs.strongloop.com/display/APIC/Cloudant+connector\r* https://docs.strongloop.com/display/APIC/DashDB\r* https://docs.strongloop.com/display/APIC/DB2+connector\r* https://docs.strongloop.com/display/APIC/Informix\r* https://docs.strongloop.com/display/APIC/Memory+connector\r* https://docs.strongloop.com/display/APIC/MongoDB+connector\r* https://docs.strongloop.com/display/APIC/MySQL+connector\r* https://docs.strongloop.com/display/APIC/Oracle+connector\r* https://docs.strongloop.com/display/APIC/PostgreSQL+connector\r* https://docs.strongloop.com/display/APIC/Redis+connector\r* https://docs.strongloop.com/display/APIC/SQL+Server+connector\r* https://docs.strongloop.com/display/APIC/SQLite3"
+      "description": "Various connection settings are required, depending on the connector. For information on the specific properties that each connector supports, see:\r* https://docs.strongloop.com/display/APIC/Cloudant+connector\r* https://docs.strongloop.com/display/APIC/DashDB\r* <https://docs.strongloop.com/display/APIC/DB2+connector>\r* https://docs.strongloop.com/display/APIC/Informix\r* https://docs.strongloop.com/display/APIC/Memory+connector\r* https://docs.strongloop.com/display/APIC/MongoDB+connector\r* https://docs.strongloop.com/display/APIC/MySQL+connector\r* https://docs.strongloop.com/display/APIC/Oracle+connector\r* https://docs.strongloop.com/display/APIC/PostgreSQL+connector\r* https://docs.strongloop.com/display/APIC/Redis+connector\r* https://docs.strongloop.com/display/APIC/SQL+Server+connector\r* https://docs.strongloop.com/display/APIC/SQLite3"
     },
     "required": ["name", "connector"]
   }
