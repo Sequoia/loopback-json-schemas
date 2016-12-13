@@ -2,7 +2,7 @@
   "$schema" : "http://json-schema.org/draft-04/schema#",
   "id": "http://localhost:8090/loopback-model-query-parameters.json",
   "title": "LoopBack 3.0 Query Parameters",
-  "description": "Query parameters for `Model.find()` etc. as well as model `scopes`. Fields, limit, order, etc. \r@see https://docs.strongloop.com/display/APIC/Querying+data",
+  "description": "Query parameters for `Model.find()` etc. as well as model `scopes`. Fields, limit, order, etc. \r\r https://docs.strongloop.com/display/APIC/Querying+data",
   "definitions" : {
     "stringInclude" : {
       "type" : "string",
@@ -23,7 +23,7 @@
     },
     "filterInclude" : {
       "type" : "object",
-      "description": "For complex include conditions\r@see https://docs.strongloop.com/display/APIC/Include+filter#Includefilter-Includewithfilters",
+      "description": "For complex include conditions\r\r https://docs.strongloop.com/display/APIC/Include+filter#Includefilter-Includewithfilters",
       "properties": {
         "relation" : {
           "$ref": "#/definitions/stringInclude"

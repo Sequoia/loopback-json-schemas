@@ -6,7 +6,7 @@
   "definitions": {
     "descriptionProp": {
       "type" : ["string","array"],
-      "description": "Optional description.\rYou can split long descriptions into arrays of strings (lines) to keep line lengths manageable.\r```javascript\r[\r\t\"Lorem ipsum dolor sit amet, consectetur adipiscing elit\",\r\t\"sed do eiusmod tempor incididunt ut labore et dolore\",\r\t\"magna aliqua.\"\r]```",
+      "description": "Optional description.\rYou can split long descriptions into arrays of strings (lines) to keep line lengths manageable.",
       "oneOf": [
         {"type" : "string"},
         {"type" : "array", "items": {"type":"string"}} 
@@ -24,7 +24,7 @@
     },
     "loopbackDatatypes" : {
       "type": "string",
-      "description": "Any type described in [LoopBack types](https://docs.strongloop.com/display/APIC/LoopBack+types).",
+      "description": "Any type described in LoopBack types: https://docs.strongloop.com/display/APIC/LoopBack+types",
       "enum" : ["any","array","boolean","buffer","date","geopoint","null","number","object","string"]
     }
   }
