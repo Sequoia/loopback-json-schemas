@@ -1,0 +1,93 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "id": "http://localhost:8090/loopback-middleware.json",
+  "title": "Model Config",
+  "type": "object",
+  "description": "Express middleware configuration. Configurations of each middleware is dependant on that specific middleware's configuration options. \n\n@see https://loopback.io/doc/en/lb2/Defining-middleware.html#registering-middleware-in-middlewarejson\n@see https://loopback.io/doc/en/lb2/middleware.json.html#phases for info on middleware phases\n@see https://loopback.io/doc/en/lb2/Defining-middleware.html#using-variables-in-values for a list of available variable values accessible in middleware.json",
+  "definitions": {
+    "phaseConfig" : {
+      "description" : "Middleware configurations for a middleware phase.",
+      "type": "object",
+      "additionalProperties": {
+        "anyOf" : [
+          {"$ref" : "#/definitions/middlewareSingleConfig"},
+          {
+            "type": "array",
+            "items" : {"$ref" : "#/definitions/middlewareSingleConfig"}
+          }
+        ]
+      }
+    },
+    "middlewareSingleConfig" : {
+      "type" : "object",
+      "description": "Configuration for a single middleware",
+      "properties" : {
+        "name": {
+          "type": "string",
+          "description": "An optional name for the entry. It can be used to identify an entry within the same phase/path for the purpose of merging"          
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether to register or enable the middleware. You can override this property in environment-specific files, for example to disable certain middleware when running in production.\n@see https://loopback.io/doc/en/lb2/Defining-middleware.html",
+          "default": true
+        },
+        "params": {
+          "type": ["array","object"],
+          "description": "Parameters to pass to the middleware handler (constructor) function. Most middleware constructors take a single \"options\" object parameter; in that case the `params value` is that object.\n\nTo specify a project-relative path (for example, to a directory containing static assets), start the string with the prefix $!. Such values are interpreted as paths relative to the file middleware.json.\n@see https://loopback.io/doc/en/lb2/Defining-middleware.html#middleware-configuration-properties for examples"
+        },
+        "methods": {
+          "type": "array",
+          "description": "Specifies the HTTP methods, such as 'GET', 'POST', and 'PUT'. If not present, it will apply to all methods.",
+          "uniqueItems": true,
+          "minItems":1,
+          "items": {
+            "type" : "string",
+            "description": "HTTP method",
+            "enum": ["CONNECT","DELETE","GET","HEAD","OPTIONS","PATCH","POST","PUT"]
+          }
+        },
+        "paths": {
+          "type": "array",
+          "description": "Specifies the REST endpoint(s) that trigger the middleware. In addition to a literal string, route can be a path matching pattern, a regular expression, or an array including all these types.\nBy default, middleware is attached to all routes.\n@see http://expressjs.com/4x/api.html#app.use",
+          "uniqueItems": true,
+          "minItems":1,
+          "items": {
+            "type" : "string"
+          }
+        },
+        "optional": {
+          "type": "boolean",
+          "description": "Specify whether the middleware is optional. Optional middleware do not throw, even if they are not installed or cannot be resolved in the file system.",
+          "default": "true"
+        }
+      }
+    }
+  },
+  "properties": {
+    "initial:before" : {"description": "BEFORE The first point at which middleware can run.", "$ref" : "#/definitions/phaseConfig" },
+    "initial" : {"description": "The first point at which middleware can run.", "$ref" : "#/definitions/phaseConfig" },
+    "initial:after" : {"description": "AFTER The first point at which middleware can run.", "$ref" : "#/definitions/phaseConfig" },
+    "session:before" : {"description": "BEFORE Prepare the session object.", "$ref" : "#/definitions/phaseConfig" },
+    "session" : {"description": "Prepare the session object.", "$ref" : "#/definitions/phaseConfig" },
+    "session:after" : {"description": "AFTER Prepare the session object.", "$ref" : "#/definitions/phaseConfig" },
+    "auth:before" : {"description": "BEFORE Handle authentication and authorization.", "$ref" : "#/definitions/phaseConfig" },
+    "auth" : {"description": "Handle authentication and authorization.", "$ref" : "#/definitions/phaseConfig" },
+    "auth:after" : {"description": "AFTER Handle authentication and authorization.", "$ref" : "#/definitions/phaseConfig" },
+    "parse:before" : {"description": "BEFORE Parse the request body.", "$ref" : "#/definitions/phaseConfig" },
+    "parse" : {"description": "Parse the request body.", "$ref" : "#/definitions/phaseConfig" },
+    "parse:after" : {"description": "AFTER Parse the request body.", "$ref" : "#/definitions/phaseConfig" },
+    "routes:before" : {"description": "BEFORE HTTP routes implementing your application logic.", "$ref" : "#/definitions/phaseConfig" },
+    "routes" : {"description": "HTTP routes implementing your application logic. Middleware registered via the Express API app.use, app.route, app.get (and other HTTP verbs) runs at the beginning of this phase. Use this phase also for sub-apps like loopback/server/middleware/rest or loopback-explorer.", "$ref" : "#/definitions/phaseConfig" },
+    "routes:after" : {"description": "AFTER HTTP routes implementing your application logic.", "$ref" : "#/definitions/phaseConfig" },
+    "files:before" : {"description": "BEFORE  Serve static assets.", "$ref" : "#/definitions/phaseConfig" },
+    "files" : {"description": " Serve static assets (requests hit the file system here).", "$ref" : "#/definitions/phaseConfig" },
+    "files:after" : {"description": "AFTER  Serve static assets.", "$ref" : "#/definitions/phaseConfig" },
+    "final:before" : {"description": "BEFORE Deal with errors and requests for unknown URLs.", "$ref" : "#/definitions/phaseConfig" },
+    "final" : {"description": "Deal with errors and requests for unknown URLs.", "$ref" : "#/definitions/phaseConfig" },
+    "final:after" : {"description": "AFTER Deal with errors and requests for unknown URLs.", "$ref" : "#/definitions/phaseConfig" }
+  },
+  "additionalProperties": {
+    "$ref" : "#/definitions/phaseConfig",
+    "description": "A custom, user-defined middleware phase."
+  }
+}
