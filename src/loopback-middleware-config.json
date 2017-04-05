@@ -32,7 +32,6 @@
           "default": true
         },
         "params": {
-          "type": ["array","object"],
           "description": "Parameters to pass to the middleware handler (constructor) function. Most middleware constructors take a single \"options\" object parameter; in that case the `params value` is that object.\n\nTo specify a project-relative path (for example, to a directory containing static assets), start the string with the prefix $!. Such values are interpreted as paths relative to the file middleware.json.\n@see https://loopback.io/doc/en/lb2/Defining-middleware.html#middleware-configuration-properties for examples"
         },
         "methods": {

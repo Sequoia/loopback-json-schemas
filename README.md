@@ -47,7 +47,7 @@ Schemas in this repository cover the following files:
 1. `datasources.json`
 1. `config.json`
 1. `*/models/[Model].json`
-1. `middleware-config.json`
+1. `middleware.json`
 
 # Contributing
 
