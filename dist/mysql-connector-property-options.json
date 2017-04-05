@@ -10,7 +10,7 @@
     },
     "dataType" : {
       "type" : "string",
-      "description" : "MySQL datatype\r @see https://docs.strongloop.com/display/APIC/MySQL+connector#MySQLconnector-Usingthedatatypefield/columnoptionwithMySQL",
+      "description" : "MySQL datatype\r\rhttps://docs.strongloop.com/display/APIC/MySQL+connector#MySQLconnector-Usingthedatatypefield/columnoptionwithMySQL",
       "enum": ["INT", "TINYINT", "SMALLINT", "MEDIUMINT", "BIGINT", "FLOAT", "DOUBLE", "DECIMAL", "DATE", "DATETIME", "TIMESTAMP", "TIME", "YEAR", "CHAR", "VARCHAR", "BLOB", "TINYBLOB", "MEDIUMBLOB", "LONGBLOB"]
     },
     "dataLength" : {

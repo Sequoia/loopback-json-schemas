@@ -1,0 +1,138 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/loopback-config.json",
+  "title": "Application Server Configuration",
+  "type": "object",
+  "description": "Define application server-side settings. To access the settings in application code, use app.get('_property_') https://loopback.io/doc/en/lb2/config.json.html",
+  "properties": {
+    "restApiRoot": {
+      "type": "string",
+      "description": "Root URI of REST API",
+      "default": "/api"
+    },
+    "host": {
+      "type": "string",
+      "description": "Host or IP address used to create the Node HTTP server. If a request comes to a different host or IP address, then the application won't accept the connection. See server.listen() for more information.",
+      "default": "0.0.0.0"
+    },
+    "aclErrorStatus": {
+      "type": "number",
+      "description": "When an authenticated user is denied access because of an ACL, by default the application returns HTTP error status code 401 unauthorized. If you want instead to return 403 (forbidden) set the value here.",
+      "default": 401
+    },
+    "port" : {
+      "type":"number",
+      "description": "TCP port to use.",
+      "default": 3000
+    },
+    "legacyExplorer" : {
+      "type": "boolean",
+      "description": "Set to false to disable old routes /models and /routes that are exposed, but no longer used by API Explorer; use true or omit the option to keep them enabled.",
+      "default": true
+    },
+    "remoting": {
+      "type":"object",
+      "description": "Properties under the remoting top-level property determine how the application performs remote operations using strong-remoting. @see http://apidocs.strongloop.com/strong-remoting/",
+      "properties": {
+        "cors" : {
+          "type":"boolean",
+          "description": "If false, use the CORS settings in middleware.json.",
+          "default": "false"
+        },
+        "context" : {
+          "type": "object",
+          "properties" : {
+            "enableHttpContext" : {
+              "type":"boolean",
+              "description": "Advanced feature. @see https://loopback.io/doc/en/lb2/Using-current-context.html",
+              "default": false
+            }
+          }
+        },
+        "errorHandler" : {
+          "type": "object",
+          "properties" : {
+            "disableStackTrace" : {
+              "type":"boolean",
+              "description": "Set to true to disable stack traces; removes the stack property from the Error object.\n\nIgnored when NODE_ENV is `production`, when stack traces are always disabled.",
+              "default": false
+            }
+          }
+        },
+        "json" : {
+          "type": "object",
+          "properties" : {
+            "limit" : {
+              "type":"string",
+              "description": "Maximum request body size. You can set other JSON properties as well @see https://www.npmjs.com/package/body-parser#bodyparserjsonoptions",
+              "default": "100kb"
+            },
+            "strict" : {
+              "type":"boolean",
+              "description": "Parse only objects and arrays.. You can set other JSON properties as well @see https://www.npmjs.com/package/body-parser#bodyparserjsonoptions",
+              "default": false
+            }
+          }
+        },
+        "rest" : {
+          "type": "object",
+          "properties" : {
+            "handleErrors" : {
+              "type":"boolean",
+              "description": "If true (the default), then the REST adapter handles all errors by sending back a JSON-formatted error response. If false, then errors are passed to the top-level application error-handler.",
+              "default": true
+            },
+            "handleUnknownPaths" : {
+              "type":"boolean",
+              "description": "If true (the default), then the REST adapter emits a 404 error for unknown paths. The REST error handler or the application error handler then handle this error; rest.handleErrors above.\n\nIf false, then the REST adapter delegates handling unknown paths to the top-level application by calling next().",
+              "default": true
+            },
+            "normalizeHttpPath" : {
+              "type":"boolean",
+              "description": "If true, in HTTP paths, converts:\n\n* Uppercase letters to lowercase.\n* Underscores (_) to dashes (-).\n*C amelCase to dash-delimited.\n\nDoes not affect placeholders (for example \":id\"). For example, \"MyClass\" or \"My_class\" becomes \"my-class\".",
+              "default": false
+            },
+            "supportedTypes" : {
+              "type":"array",
+              "description": "List of content types that the API supports in HTTP responses.\nThe response type will match that specified in the HTTP request \"accepts\" header, if it is in this list of supported types.\nIf this property is set, then rest.xml is ignored.\nNOTE: 'application/vnd.api-json' is supported, but is not one of the default types.",
+              "items": {
+                "type": "string",
+                "description": "content type e.g. `application/json`"
+              },
+              "default": [
+                "application/json",
+                "application/javascript",
+                "application/xml",
+                "text/javascript",
+                "text/xml",
+                "json",
+                "xml"
+              ]
+            },
+            "xml" : {
+              "type" : "boolean",
+              "description": "If true, then 'xml' is added to the supported content types. Then, the API will then respond with XML when the HTTP request 'accepts' type contains 'xml'.",
+              "default": "false"
+            }
+          }
+        },
+        "urlencoded" : {
+          "type":"object",
+          "description": "settings for the 'urlencoded' body parser. @see https://www.npmjs.com/package/body-parser#bodyparserurlencodedoptions",
+          "properties": {
+            "extended": {
+              "type":"boolean",
+              "description": "Parse extended syntax with the qs module. https://www.npmjs.com/package/body-parser#bodyparserurlencodedoptions",
+              "default": true
+            },
+            "limit": {
+              "type":"string",
+              "description": "Parse extended syntax with the qs module. https://www.npmjs.com/package/body-parser#bodyparserurlencodedoptions",
+              "default": "100kb"
+            }
+          }
+        }
+      }
+    }
+  }
+}

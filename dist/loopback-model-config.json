@@ -3,7 +3,7 @@
   "id": "https://raw.githubusercontent.com/Sequoia/loopback-json-schemas/master/dist/loopback-model-config.json",
   "title": "Model Config",
   "type": "object",
-  "description": "Connects models to datasources.\r @see https://docs.strongloop.com/display/public/APIC/model-config.json",
+  "description": "Connects models to datasources. https://docs.strongloop.com/display/public/APIC/model-config.json",
   "properties": {
     "_meta" : {
       "type": "object",
@@ -16,7 +16,7 @@
         },
         "mixins": {
           "type": "array",
-          "description": "Array of relative paths to custom mixin definitions. See [Defining mixins](https://docs.strongloop.com/display/APIC/Defining+mixins) for more information.",
+          "description": "Array of relative paths to custom mixin definitions. https://docs.strongloop.com/display/APIC/Defining+mixins",
           "items": {"type": "string"}
         }
       }
@@ -24,16 +24,18 @@
   },
   "additionalProperties": {
     "type" : "object",
-    "description": "Configure models by model name \rExample: \r```\n  \"User\": {\n    \"dataSource\": \"mysqlLocal\",\n    \"public\": false\n  }\n```\n",
+    "description": "Configure models by model name. Add one property per model.",
     "properties": {
-        "datasource": {
-        "type": "string",
-        "description": "Name of the data source to which the model is connected. Must correspond to a data source defined in [datasources.json](https://docs.strongloop.com/display/APIC/datasources.json)."
-      },
       "public": {
         "type": "boolean",
         "description": "Whether the model API is exposed.\r\rIf `true`, then the model is exposed over REST. Does not affect accessibility of Node API.",
         "default": false
+      }
+    },
+    "patternProperties": {
+      "^data[sS]ource$": {
+        "type": "string",
+        "description": "Name of the data source to which the model is connected. Must correspond to a data source defined in datasources.json: https://docs.strongloop.com/display/APIC/datasources.json"
       }
     }
   }
