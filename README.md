@@ -20,6 +20,10 @@ Using an IDE that supports JSONSchemas (I recommend [VS Code](https://code.visua
 }
 ```
 
+:warning: **Your editor or IDE must support `$ref`s for JSONSchema!** [Not all do.](https://github.com/bali182/autocomplete-json/issues/64).
+
+If you use a different tool than VSCode and it works with JSONSchema (and `$ref`s!), please send a PR so I can list it here. [These tools](http://json-schema.org/implementations.html#editors) are worth trying!
+
 ## Method 3. Map schemas to file by **file paths** (VS Code)
 *:information_source: If you're using VSCode you may as well use method 1*
 
@@ -34,6 +38,16 @@ Edit your `jsconfig.json` in VS Code to [map schemas to file paths in your proje
 ```
 
 This will automatically link schemas to paths so you don't have to use **Method 2**. [Read more](https://code.visualstudio.com/Docs/languages/json#_json-schemas-settings).
+
+# Currently Implemented Schemas
+
+Schemas in this repository cover the following files:
+
+1. `model-config.json`
+1. `datasources.json`
+1. `config.json`
+1. `*/models/[Model].json`
+1. `middleware-config.json`
 
 # Contributing
 

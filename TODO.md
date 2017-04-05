@@ -1,5 +1,4 @@
 # Pre-release
-
 * [X] ~~*Remove markdown from everywhere :(*~~
 * [X] ~~*Update links from old docs to new*~~
 
@@ -22,3 +21,7 @@ This repository should ultimately contain schemas for the following loopback jso
   * [ ] Oracle
   * [ ] MongoDB
   * [ ] Postgres
+
+# Roadmap
+
+* [ ] Publish to [schemastore](http://schemastore.org/json/)? Not sure if there's any benefit to this.

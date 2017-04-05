@@ -1,4 +1,8 @@
+# Contributing
+
 [Roadmap in `TODO.md`](TODO.md). :point_left: This is where to contribute if you'd like to help!
+
+:information_source: <https://spacetelescope.github.io/> is the best source I've found for info on authoring JSONSchemas. I recommend looking it over to familiarize yourself with JSONSchema if you've never used them before and keeping it open for reference!
 
 ## 1. Setup
 
