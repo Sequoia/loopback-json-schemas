@@ -2,11 +2,11 @@
   "$schema" : "http://json-schema.org/draft-04/schema#",
   "id": "http://localhost:8090/loopback-model-definition.json",
   "title": "LoopBack 3.0 Model Definition",
-  "description": "Defines a single loopback model in a json file. https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file",
+  "description": "Defines a single loopback model in a json file. http://loopback.io/doc/en/lb3/Model-definition-JSON-file",
   "definitions": {
     "idInjection" : {
       "type" : "boolean",
-      "description": "Whether to automatically add an id property to the model:\n\n* `true`: `id` property is added to the model automatically. This is the default.\n\n* `false`: `id` property is not added to the model\n\n\nhttps://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-IDproperties",
+      "description": "Whether to automatically add an id property to the model:\n\n* `true`: `id` property is added to the model automatically. This is the default.\n\n* `false`: `id` property is not added to the model\n\n\nhttp://loopback.io/doc/en/lb3/Model-definition-JSON-file#ModeldefinitionJSONfile-IDproperties",
       "default": true
     },
     "property" : {
@@ -27,7 +27,7 @@
         },
         "id" : {
           "type": ["boolean", "number"],
-          "description": "Set the id property of the option to true to explicitly set this property as an id. Must be one of:\n\n* `true`: the property is an ID.\n\n* `false`: (or any value that converts to false): the property is not an ID (default).\n\n* Positive number, such as 1 or 2: the property is the index of a composite ID.\n\nSee https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-IDproperties\n",
+          "description": "Set the id property of the option to true to explicitly set this property as an id. Must be one of:\n\n* `true`: the property is an ID.\n\n* `false`: (or any value that converts to false): the property is not an ID (default).\n\n* Positive number, such as 1 or 2: the property is the index of a composite ID.\n\nSee http://loopback.io/doc/en/lb3/Model-definition-JSON-file#ModeldefinitionJSONfile-IDproperties\n",
           "default": false
         },
         "index" : { "$ref" : "#/definitions/propertyIndex" },
@@ -110,7 +110,7 @@
     },
     "protected" : {
       "type": "array",
-      "description": "A protected property is not sent in the JSON data in the application's HTTP response if the object is nested inside another object.\r\rhttps://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Protectedproperties",
+      "description": "A protected property is not sent in the JSON data in the application's HTTP response if the object is nested inside another object.\r\rhttp://loopback.io/doc/en/lb3/Model-definition-JSON-file#ModeldefinitionJSONfile-Protectedproperties",
       "items": {
         "type": "string"
       }
@@ -140,7 +140,7 @@
           { "$ref" : "http://localhost:8090/shared-refs.json#/definitions/loopbackDatatypeProperty" },
           { 
             "title" : "excluded base property",
-            "description" : "exclude properties from base model with null or false\r\rhttps://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Excludepropertiesfrombasemodel",
+            "description" : "exclude properties from base model with null or false\r\rhttp://loopback.io/doc/en/lb3/Model-definition-JSON-file#ModeldefinitionJSONfile-Excludepropertiesfrombasemodel",
             "anyOf" : [
               {"type" : "boolean", "enum" : [false] },
               {"type" : "null"}
@@ -154,7 +154,7 @@
       "description": "Definitions for relationships to other models.",
       "additionalProperties": {
         "type" : "object",
-        "description": "Relationships.\r\rhttps://docs.strongloop.com/display/APIC/Creating+model+relations",
+        "description": "Relationships.\r\rhttp://loopback.io/doc/en/lb3/Creating-model-relations",
         "properties": {
           "model": {
             "description": "Model name",
@@ -165,7 +165,7 @@
             "enum" : ["hasOne","hasMany","belongsTo","hasAndBelongsToMany"]
           },
           "keyThrough": {
-            "description": "A hasManyThrough relation has a keyThrough property that indicates the foreign key property (field) name.  If not specified, it defaults to the toModelName with Id appended;\r\rhttps://docs.strongloop.com/display/APIC/HasManyThrough+relations#HasManyThroughrelations-Definingtheforeignkeyproperty",
+            "description": "A hasManyThrough relation has a keyThrough property that indicates the foreign key property (field) name.  If not specified, it defaults to the toModelName with Id appended;\r\rhttp://loopback.io/doc/en/lb3/HasManyThrough-relations#HasManyThroughrelations-Definingtheforeignkeyproperty",
             "type" : "string"
           },
           "foreignKey": {
@@ -196,7 +196,7 @@
     },
     "acls" : {
       "type": "array",
-      "description": "The value of the `acls` key is an array of objects that describes the access controls for the model. Example: \n\n{ \"permission\": \"ALLOW\", \"principalType\": \"ROLE\", \"principalId\": \"$everyone\", \"property\": \"myMethod\"}\n\nhttps://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-ACLs",
+      "description": "The value of the `acls` key is an array of objects that describes the access controls for the model. Example: \n\n{ \"permission\": \"ALLOW\", \"principalType\": \"ROLE\", \"principalId\": \"$everyone\", \"property\": \"myMethod\"}\n\nhttp://loopback.io/doc/en/lb3/Model-definition-JSON-file#ModeldefinitionJSONfile-ACLs",
       "items": {
         "type": "object",
         "description": "individual ACL rule",
@@ -246,21 +246,21 @@
     },
     "scopes" : {
       "type": "object",
-      "description": "Scopes enable you to specify commonly-used queries that you can reference as method calls on a model.\nThe scopes key defines one or more scopes (named queries) for models. A scope maps a name to a predefined filter object to be used by the model's `find()` method\n\nhttps://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Scopes\n",
+      "description": "Scopes enable you to specify commonly-used queries that you can reference as method calls on a model.\nThe scopes key defines one or more scopes (named queries) for models. A scope maps a name to a predefined filter object to be used by the model's method\n\nhttp://loopback.io/doc/en/lb3/Model-definition-JSON-file#ModeldefinitionJSONfile-Scopes\n",
       "additionalProperties": {
         "$ref" : "http://localhost:8090/loopback-model-query-parameters.json#"
       }
     },
     "scope" : {
       "title" : "Default scope",
-      "description": "If you wish for a scope to be applied across all queries to the model, you can use this property to set the default scope for the model itself.\r\r https://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Defaultscope",
+      "description": "If you wish for a scope to be applied across all queries to the model, you can use this property to set the default scope for the model itself.\r\r http://loopback.io/doc/en/lb3/Model-definition-JSON-file#ModeldefinitionJSONfile-Defaultscope",
       "$ref" : "http://localhost:8090/loopback-model-query-parameters.json#"
     },
     "mysql" : {
       "$ref" : "http://localhost:8090/mysql-connector-model-options.json"
     },
     "indexes" : {
-      "description": "Declare indexes for a model \nExample:\n\n \"name_age_index\": { \"keys\": {\"name\": 1, \"age\": -1} }\n\n \"age_index\": {\"age\": -1} }\n\nhttps://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-Indexes\n",
+      "description": "Declare indexes for a model \nExample:\n\n \"name_age_index\": { \"keys\": {\"name\": 1, \"age\": -1} }\n\n \"age_index\": {\"age\": -1} }\n\nhttp://loopback.io/doc/en/lb3/Model-definition-JSON-file#ModeldefinitionJSONfile-Indexes\n",
       "type" : "object",
       "additionalProperties": {
         "anyOf": [
@@ -289,7 +289,7 @@
           },
           {
             "type" : "object",
-            "description" : "MySQL indexes\n\n http://dev.mysql.com/doc/refman/5.7/en/mysql-indexes.html\n\nhttps://docs.strongloop.com/display/public/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-MySQLindexes",
+            "description" : "MySQL indexes\n\n http://dev.mysql.com/doc/refman/5.7/en/mysql-indexes.html\n\nhttp://loopback.io/doc/en/lb3/Model-definition-JSON-file#ModeldefinitionJSONfile-MySQLindexes",
             "properties": {
               "columns" : {
                 "type" : "string",

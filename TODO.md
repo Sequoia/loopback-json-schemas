@@ -1,10 +1,10 @@
 # Pre-release
 
-* [x] Remove markdown from everywhere :(
-* [ ] Update links from old docs to new
+* [X] ~~*Remove markdown from everywhere :(*~~
+* [X] ~~*Update links from old docs to new*~~
 
 * [ ] Document working on plugin
-* [ ] Document working on schemas
+* [X] ~~*Document working on schemas*~~
 
 # Features
 This repository should ultimately contain schemas for the following loopback json files:
@@ -14,7 +14,7 @@ This repository should ultimately contain schemas for the following loopback jso
 * [X] ~~*`/server/model-config.json`*~~
 * [x] `/server/config.json`
 * [X] ~~*`/server/middleware.json`*~~
-* [ ] `/server/component-config.json` 
+* ~~[ ] *`/server/component-config.json`*~~ *Doesn't really have common settings to document*
 
 ## Extra
 * Model definition datasource specific props (for "official" connectors)

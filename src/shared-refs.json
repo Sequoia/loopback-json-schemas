@@ -24,7 +24,7 @@
     },
     "loopbackDatatypes" : {
       "type": "string",
-      "description": "Any type described in LoopBack types: https://docs.strongloop.com/display/APIC/LoopBack+types",
+      "description": "Any type described in LoopBack types: http://loopback.io/doc/en/lb3/LoopBack-types",
       "enum" : ["any","array","boolean","buffer","date","geopoint","null","number","object","string"]
     }
   }

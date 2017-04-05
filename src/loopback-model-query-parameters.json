@@ -2,7 +2,7 @@
   "$schema" : "http://json-schema.org/draft-04/schema#",
   "id": "http://localhost:8090/loopback-model-query-parameters.json",
   "title": "LoopBack 3.0 Query Parameters",
-  "description": "Query parameters for `Model.find()` etc. as well as model `scopes`. Fields, limit, order, etc. \r\r https://docs.strongloop.com/display/APIC/Querying+data",
+  "description": "Query parameters for `Model.find()` etc. as well as model `scopes`. Fields, limit, order, etc. \r\r http://loopback.io/doc/en/lb3/Querying-data",
   "definitions" : {
     "stringInclude" : {
       "type" : "string",
@@ -23,7 +23,7 @@
     },
     "filterInclude" : {
       "type" : "object",
-      "description": "For complex include conditions\r\r https://docs.strongloop.com/display/APIC/Include+filter#Includefilter-Includewithfilters",
+      "description": "For complex include conditions\r\r http://loopback.io/doc/en/lb3/Include-filter#Includefilter-Includewithfilters",
       "properties": {
         "relation" : {
           "$ref": "#/definitions/stringInclude"
@@ -46,7 +46,7 @@
       }
     },
     "whereObject" : {
-      "description": "Specify search criteria; similar to a WHERE clause in SQL. \r```\r\"field\":\"value\" // equals condition (field = value)\r\"field\":{\"gt\":5}// condition OBJECT specifying `gt`,`lt`,`neq`, etc.\r\"or\":[{\"field\":/*condition*/}],{\"field\":/*condition*/}] // or clause with 2 or more conditions\r\"and\":[[{\"field\":/*condition*/}],{\"field\":/*condition*/}]] // and clause with 2 or more conditions\r```\r@see https://docs.strongloop.com/display/APIC/Where+filter",
+      "description": "Specify search criteria; similar to a WHERE clause in SQL. \r```\r\"field\":\"value\" // equals condition (field = value)\r\"field\":{\"gt\":5}// condition OBJECT specifying `gt`,`lt`,`neq`, etc.\r\"or\":[{\"field\":/*condition*/}],{\"field\":/*condition*/}] // or clause with 2 or more conditions\r\"and\":[[{\"field\":/*condition*/}],{\"field\":/*condition*/}]] // and clause with 2 or more conditions\r```\r@see http://loopback.io/doc/en/lb3/Where-filter",
       "type": "object",
       "properties": {
         "or" : { "$ref": "#/definitions/whereOr" },
@@ -77,7 +77,7 @@
     },
     "whereCondition": {
       "type" : "object",
-      "description" : "Condition for a single property.\r@see https://docs.strongloop.com/display/APIC/Where+filter",
+      "description" : "Condition for a single property.\r@see http://loopback.io/doc/en/lb3/Where-filter",
       "properties": {
         "gt" : {
           "type" : "number",
@@ -138,7 +138,7 @@
   },
   "properties": {
     "fields" : {
-      "description": "Specifies properties (fields) to include or exclude from the results.\rBy default, queries return all model properties in results.  However, if you specify at least one fields filter with a value of true, then by default the query will include *only* those you specifically include with filters.\r@see https://docs.strongloop.com/display/APIC/Fields+filter",
+      "description": "Specifies properties (fields) to include or exclude from the results.\rBy default, queries return all model properties in results.  However, if you specify at least one fields filter with a value of true, then by default the query will include *only* those you specifically include with filters.\r@see http://loopback.io/doc/en/lb3/Fields-filter",
       "type": "object",
       "additionalProperties": {
         "description": "Name of a field to include or remove:\r`{ fields: {id: true, make: true, model: true} }`",
@@ -146,7 +146,7 @@
       }
     },
     "include" : {
-      "description": "An include filter enables you to include results from related models in a query, for example models that have `belongsTo` or `hasMany` relations, to optimize the number of requests.\r@see https://docs.strongloop.com/display/APIC/Include+filter",
+      "description": "An include filter enables you to include results from related models in a query, for example models that have `belongsTo` or `hasMany` relations, to optimize the number of requests.\r@see http://loopback.io/doc/en/lb3/Include-filter",
       "anyOf": [
         { "$ref" : "#/definitions/stringInclude" },
         { "$ref" : "#/definitions/arrayInclude" },
