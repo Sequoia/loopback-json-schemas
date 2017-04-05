@@ -14,7 +14,7 @@ This repository should ultimately contain schemas for the following loopback jso
 * [X] ~~*`/*/models/*.json` (model definitions)*~~
 * [X] ~~*`/server/datasources.json`*~~
 * [X] ~~*`/server/model-config.json`*~~
-* [ ] `/server/config.json`
+* [x] `/server/config.json`
 * [ ] `/server/middleware.json`
 * [ ] `/server/component-config.json` 
 
