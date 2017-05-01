@@ -230,8 +230,8 @@
           "principalType": {
             "type" : "string",
             "description" : "Type of the principal (User, Role, Application)",
-            "enum": ["Application","User","Role"],
-            "default": "Role"
+            "enum": ["APP","USER","ROLE"],
+            "default": "ROLE"
           },
           "property": {
             "description" : "Specifies a property/method/relation on a given model. It further constrains where the ACL applies.\nCan be:\n\n* A string, for example: `\"create\"`\n\n* An array of strings, for example: `[\"create\", \"update\"]`\n",
