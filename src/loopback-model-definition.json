@@ -196,8 +196,7 @@
     },
     "acls" : {
       "type": "array",
-      "description": "The value of the `acls` key is an array of objects that describes the access controls for the model. Example: \n\n{ \"permission\": \"ALLOW\", \"
-      \": \"ROLE\", \"principalId\": \"$everyone\", \"property\": \"myMethod\"}\n\nhttp://loopback.io/doc/en/lb3/Model-definition-JSON-file#ModeldefinitionJSONfile-ACLs",
+      "description": "The value of the `acls` key is an array of objects that describes the access controls for the model. Example: \n\n{ \"permission\": \"ALLOW\", \"principalType\": \"ROLE\", \"principalId\": \"$everyone\", \"property\": \"myMethod\"}\n\nhttp://loopback.io/doc/en/lb3/Model-definition-JSON-file#ModeldefinitionJSONfile-ACLs",
       "items": {
         "type": "object",
         "description": "individual ACL rule",
