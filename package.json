@@ -24,6 +24,7 @@
     "url": "https://github.com/Sequoia/loopback-json-schemas/issues"
   },
   "homepage": "https://github.com/Sequoia/loopback-json-schemas#readme",
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "devDependencies": {
     "http-server": "^0.9.0",
     "replace": "^0.3.0",
